@@ -42,7 +42,9 @@ public class HotelController {
         boolean released = hotelService.release(id);
         if (released) {
             return ResponseEntity.ok("Apartment successfully released");
-        } else return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Apartment not found with such id");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Apartment not found with such id");
+        }
     }
 
     @GetMapping("/getPaginated")

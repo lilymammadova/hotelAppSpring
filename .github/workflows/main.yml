@@ -20,7 +20,7 @@ jobs:
       - name: Checkout library
         uses: actions/checkout@v2
         with:
-          repository: lilyamammadova/JPA-starter
+          repository: lilymammadova/JPA-starter
           ref: add_jpa_starter
           path: jpa-starter
 
