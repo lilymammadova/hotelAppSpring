@@ -1,8 +1,8 @@
 package org.liliyamammadova.hotelapplication.model;
 
 import jakarta.persistence.*;
+import org.liliyamammadova.jpastarter.entity.BaseEntity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -10,10 +10,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "clients")
-public class Client implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Client extends BaseEntity {
     @Column(name = "name", nullable = false, length = 45)
     private String name;
 
@@ -22,19 +19,11 @@ public class Client implements Serializable {
     }
 
     public Client(int id, String name) {
-        this.id = id;
+        this.setId(id);
         this.name = name;
     }
 
     public Client() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -49,7 +38,7 @@ public class Client implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Client client)) return false;
-        return getId() == client.getId() && Objects.equals(getName(), client.getName());
+        return Objects.equals(getId(), client.getId()) && Objects.equals(getName(), client.getName());
     }
 
     @Override
@@ -60,7 +49,7 @@ public class Client implements Serializable {
     @Override
     public String toString() {
         return "Client{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 '}';
     }

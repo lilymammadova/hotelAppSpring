@@ -1,16 +1,13 @@
 package org.liliyamammadova.hotelapplication.model;
 
 import jakarta.persistence.*;
+import org.liliyamammadova.jpastarter.entity.BaseEntity;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @Table(name = "apartments")
-public class Apartment implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Apartment extends BaseEntity {
     @Column(name = "price", nullable = false)
     private double price;
     @Enumerated(EnumType.STRING)
@@ -24,18 +21,10 @@ public class Apartment implements Serializable {
     }
 
     public Apartment(int id, double price, ReservationStatus reservationStatus, Client client) {
-        this.id = id;
+        this.setId(id);
         this.price = price;
         this.reservationStatus = reservationStatus;
         this.client = client;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public double getPrice() {
@@ -65,7 +54,7 @@ public class Apartment implements Serializable {
     @Override
     public String toString() {
         return "Apartment{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", price=" + price +
                 ", reservationStatus='" + reservationStatus + '\'' +
                 ", clientName='" + client + '\'' +
@@ -76,7 +65,7 @@ public class Apartment implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Apartment apartment)) return false;
-        return getId() == apartment.getId() && Double.compare(apartment.getPrice(), getPrice()) == 0 && getReservationStatus() == apartment.getReservationStatus() && Objects.equals(getClient(), apartment.getClient());
+        return Objects.equals(getId(), apartment.getId()) && Double.compare(apartment.getPrice(), getPrice()) == 0 && getReservationStatus() == apartment.getReservationStatus() && Objects.equals(getClient(), apartment.getClient());
     }
 
     @Override

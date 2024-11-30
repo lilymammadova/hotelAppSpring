@@ -2,10 +2,8 @@ package org.liliyamammadova.hotelapplication.repository;
 
 import org.liliyamammadova.hotelapplication.model.Apartment;
 import org.liliyamammadova.hotelapplication.model.ReservationStatus;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.liliyamammadova.jpastarter.repository.BaseRepository;
 
-@Repository
-public interface ApartmentRepository extends JpaRepository<Apartment,Integer> {
+public interface ApartmentRepository extends BaseRepository<Apartment> {
     Apartment findFirstByReservationStatus(ReservationStatus reservationStatus);
 }

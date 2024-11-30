@@ -1,17 +1,9 @@
 package org.liliyamammadova.hotelapplication.service;
 
-import org.liliyamammadova.hotelapplication.exception.ReservationException;
 import org.liliyamammadova.hotelapplication.model.Apartment;
-import org.liliyamammadova.hotelapplication.model.Client;
+import org.liliyamammadova.hotelapplication.model.ReservationStatus;
+import org.liliyamammadova.jpastarter.service.BaseService;
 
-import java.util.List;
-
-public interface ApartmentService {
-    int register(double price);
-
-    boolean reserve(Client client) throws ReservationException;
-
-    boolean release(int id) throws ReservationException;
-
-    List<Apartment> getPaginatedAndSortedApartments(int page, int size, String sortBy);
+public interface ApartmentService extends BaseService<Apartment> {
+    Apartment getFirstByReservationStatus(ReservationStatus reservationStatus);
 }
