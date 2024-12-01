@@ -47,7 +47,7 @@ public class HotelController {
         }
     }
 
-    @GetMapping("/getPaginated")
+    @GetMapping
     public ResponseEntity<List<Apartment>> getApartments(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,

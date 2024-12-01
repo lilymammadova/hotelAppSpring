@@ -1,4 +1,4 @@
-name: CI/CD with Jar Build and Test
+name: Docker build and push
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ on:
       - master
 
 jobs:
-  build_and_upload_jar:
+  build_and_push:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,8 +46,11 @@ jobs:
       - name: Package Jar
         run: mvn package -DskipTests
 
-      - name: Upload JAR Artifact
-        uses: actions/upload-artifact@v4
+      - name: Build Docker image
+        run: docker build -t ghcr.io/${{ github.repository }}/hotel-app:latest .
         with:
           name: hotel-app.jar
           path: target/*.jar
+
+      - name: Push Docker image
+        run: docker push ghcr.io/${{ github.repository }}/hotel-app:latest
