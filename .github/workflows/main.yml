@@ -1,0 +1,53 @@
+name: CI/CD with Jar Build and Test
+
+on:
+  pull_request:
+    branches:
+      - master
+
+  push:
+    branches:
+      - master
+
+jobs:
+  build_and_upload_jar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Checkout library
+        uses: actions/checkout@v3
+        with:
+          repository: lilymammadova/JPA-starter
+          path: jpa-starter
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build and Install Jpa Starter
+        run: |
+          cd jpa-starter
+          mvn clean install
+          cd ..
+
+      - name: Package Jar
+        run: mvn package -DskipTests
+
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hotel-app.jar
+          path: target/*.jar

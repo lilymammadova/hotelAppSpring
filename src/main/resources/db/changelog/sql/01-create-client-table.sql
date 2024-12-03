@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS clients
+(
+    id   INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    PRIMARY KEY (id)
+);
